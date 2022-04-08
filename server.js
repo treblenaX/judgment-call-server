@@ -23,14 +23,14 @@ const connections = new Map();
 /** Init */
 app.use(bodyParser.json());
 Logger.useDefaults();
-// app.use(express.static(path.resolve() + '/client/judgment_call/build'));
+app.use(express.static(path.resolve() + '/client/build'));
 
-app.use(express.static(path.resolve() + '/test.html'));
+// app.use(express.static(path.resolve() + '/test.html'));
 
 /** Basic Routes */
 app.get('/', (req, res) => {
-  // res.sendFile(path.resolve() + "/client/judgment_call/public/index.html");
-  res.sendFile(path.resolve() + '/test.html');
+  res.sendFile(path.resolve() + "/client/builid/index.html");
+  // res.sendFile(path.resolve() + '/test.html');
 });
 
 /**
