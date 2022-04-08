@@ -9,6 +9,8 @@ import Logger from 'js-logger';
 import { LobbySockets } from './sockets/lobbySockets.js';
 import { LobbyHandler } from './handlers/LobbyHandler.js';
 
+const PORT = process.env.PORT || 3000;
+
 const router = express.Router();
 const app = express();
 const server = http.createServer(app);
@@ -60,7 +62,7 @@ app.get('/', (req, res) => {
 /** API */
 app.use('/api', getRouter);
 
-server.listen(3000, () => {
+server.listen(PORT, () => {
     console.log("Server is listening at port 3000");
 });
 
