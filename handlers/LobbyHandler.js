@@ -1,3 +1,5 @@
+import { PlayerHandler } from "./PlayerHandler.js";
+
 const lobbies = [];
 
 export class LobbyHandler {
@@ -8,7 +10,7 @@ export class LobbyHandler {
         while (!validLobby) {
             lobbyCode = generateLobbyCode();
 
-            if (!lobbies.find(lobby => lobbies === lobby)) {    // Lobby does not exist
+            if (!this.findLobby(lobbyCode)) {    // Lobby does not exist
                 validLobby = true;
             }
         }
@@ -19,13 +21,19 @@ export class LobbyHandler {
     static createLobby(code) {
         if (!code || code == undefined) return false;
 
+        const lobby = {
+            lobbyCode: code,
+            gameMaster: {},
+            playerIds: []
+        }
+
         lobbies.push(code);
 
         return true;
     }
 
     static isLobbyValid(code) {
-        const lobby = lobbies.find(lobby => lobby === code);
+        const lobby = this.findLobby(code);
         return (!lobby) ? false : true;
     }
 
@@ -35,7 +43,35 @@ export class LobbyHandler {
         lobbies.splice(index, 1);
         return true;    // Lobby delete successful
     }
+
+    /**
+     * Game Functions
+     */
+
+    static addPlayerToLobby(code, playerId) {
+        // Find the lobby to add player to
+        const lobby = this.findLobby(code);
+
+        // Add the playerId to array
+        lobby.playerIds.push(playerId);
+
+        // Return success
+        return true;
+    }
+
+    static isLobbyReady(code) {
+        if (this.isLobbyValid(code)) {  // If the lobby is valid
+            const players = PlayerHandler.getPlayers(code);
+
+            // If someone in lobby is not ready
+            return players.filter((player) => !player.readyState);
+        }
+    }
+
+    /** Private helper functions */
+    static findLobby = (code) => lobbies.find(lobby => lobby.lobbyCode === code);
 }
+
 
 
 /**

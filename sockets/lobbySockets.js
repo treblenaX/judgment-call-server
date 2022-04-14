@@ -1,6 +1,6 @@
 import Logger from "js-logger";
 import { LobbyHandler } from "../handlers/LobbyHandler.js";
-import { PlayerHandler } from "../handlers/Player.js";
+import { PlayerHandler } from "../handlers/PlayerHandler.js";
 import { BasicSockets } from "./basicSockets.js";
 
 // Requested Events
@@ -8,6 +8,8 @@ const NEED_LOBBY_CODE = 'NEED LOBBY CODE';
 const CLIENT_DISCONNECT = 'disconnect';
 const CLIENT_JOINED_LOBBY = 'CLIENT JOINED LOBBY';
 const REQUESTING_LOBBY_INFO = 'REQUESTING LOBBY INFO';
+const UPDATE_READY_STATE = 'UPDATE PLAYER READY STATE';
+const DOES_LOBBY_EXIST = 'DOES LOBBY EXIST'
 
 // Response Events
 const CLIENT_CONNECTED = 'CLIENT CONNECTED';
@@ -15,6 +17,8 @@ const FOUND_LOBBY_CODE = 'FOUND LOBBY CODE';
 const WELCOME_PLAYER = 'WELCOME PLAYER';
 const SENDING_LOBBY_INFO = 'SENDING LOBBY INFO';
 const REFRESH_PLAYER_LIST = 'REFRESH PLAYER LIST';
+const CONFIRM_UPDATE_READY_STATE = 'CONFIRMED PLAYER READY STATE';
+const LOBBY_EXIST_RESPONSE = 'LOBBY EXISTENCE RESPONSE';
  
 export class LobbySockets extends BasicSockets {
     static replyClientConnected = (socket) => {
@@ -23,7 +27,22 @@ export class LobbySockets extends BasicSockets {
         Logger.info(`CONNECTED - [User ${socket.client.id}] Client connected.`);
     };
 
-    static listenForLobbyCodeNeed = (socket, allSockets) => {
+    static listenForLobbyExistence = (socket) => {
+        this.listen(socket, DOES_LOBBY_EXIST, (request) => {
+            const lobbyCode = request.lobbyCode;
+            const existence = LobbyHandler.isLobbyValid(lobbyCode);
+
+            console.log('hit');
+
+            const response = {
+                existence: existence
+            };
+
+            socket.emit(LOBBY_EXIST_RESPONSE, response);
+        });
+    }
+
+    static listenForLobbyCodeNeed = (socket, ioSockets) => {
         this.listen(socket, NEED_LOBBY_CODE, (request) => {
             const playerName = request.player;
             const newLobby = request.isHost;
@@ -51,7 +70,7 @@ export class LobbySockets extends BasicSockets {
                     // Add players to our list of current players
                     PlayerHandler.addPlayer(playerId, playerName, lobbyCode);
                     // Notify client to refresh list
-                    this.sendPlayerListRefresh(allSockets, lobbyCode);
+                    this.sendPlayerListRefresh(ioSockets, lobbyCode);
                     response.lobbyCode = lobbyCode;
                 }
             }
@@ -83,25 +102,32 @@ export class LobbySockets extends BasicSockets {
         });
     }
 
-    /** Lobby specific */
+    /** Lobby Menu specific */
 
-    static sendInitLobbyInfo = (socket, allSockets) => {
+    static sendInitLobbyInfo = (socket, ioSockets) => {
         this.listen(socket, REQUESTING_LOBBY_INFO, (lobbyCode) => {
             if (!lobbyCode) throw new Error(`Send Lobby Info - No lobby lobbyCode found. ${lobbyCode}`);
 
-            this.sendToLobby(allSockets, lobbyCode, SENDING_LOBBY_INFO, PlayerHandler.getPlayers(lobbyCode));
+            this.sendToLobby(ioSockets, lobbyCode, SENDING_LOBBY_INFO, PlayerHandler.getPlayers(lobbyCode));
         })
     }
 
-    static sendPlayerListRefresh = (allSockets, lobbyCode) => {
-        this.sendToLobby(allSockets, lobbyCode, REFRESH_PLAYER_LIST, PlayerHandler.getPlayers(lobbyCode));
+    static sendPlayerListRefresh = (ioSockets, lobbyCode) => {
+        this.sendToLobby(ioSockets, lobbyCode, REFRESH_PLAYER_LIST, PlayerHandler.getPlayers(lobbyCode));
     }
 
-    static hi = (socket, allSockets) => {
-        this.listen(socket, 'ready', (data) => {
-            allSockets.in('123123').emit('message', data);
-        })
-    }
+    static listenForPlayerReady = (socket, ioSockets) => {
+        this.listen(socket, UPDATE_READY_STATE, (request) => {
+            const playerId = socket.client.id;
+            const readyState = request.readyState;
+            const lobbyCode = request.lobbyCode;
+
+            Logger.info(`LOBBY[${lobbyCode}] - [User ${playerId}] User ready: ${readyState}`);
+
+            this.sendToClient(socket, CONFIRM_UPDATE_READY_STATE, PlayerHandler.setPlayerReady(playerId, readyState));
+            this.sendPlayerListRefresh(ioSockets, lobbyCode);
+        });
+    }   
 }
 
 /** Private Logging Helpers */

@@ -17,10 +17,10 @@ const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
     origin: '*'
-  }
+  },
+  pingInterval: 10000,  // 10 seconds
+  pingTimeout: 5000  // 5 seconds timeout
 });
-
-const connections = new Map();
 
 /** Init */
 app.use(bodyParser.json());
@@ -31,7 +31,7 @@ app.use(express.static(path.resolve() + '/client/build'));
 
 /** Basic Routes */
 app.get('/', (req, res) => {
-  res.sendFile(path.resolve() + "/client/builid/index.html");
+  res.sendFile(path.resolve() + "/client/build/index.html");
   // res.sendFile(path.resolve() + '/test.html');
 });
 
@@ -46,6 +46,9 @@ app.get('/', (req, res) => {
   // Display `connected` to client
   LobbySockets.replyClientConnected(socket);
 
+  // LISTEN - lobby exists
+  LobbySockets.listenForLobbyExistence(socket);
+
   // LISTEN - lobby code request
   LobbySockets.listenForLobbyCodeNeed(socket, io.sockets);
 
@@ -57,6 +60,8 @@ app.get('/', (req, res) => {
 
   /** Lobby Listeners */
   LobbySockets.sendInitLobbyInfo(socket, io.sockets);
+
+  LobbySockets.listenForPlayerReady(socket, io.sockets);
 });
 
 /** API */

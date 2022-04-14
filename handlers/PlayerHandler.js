@@ -10,7 +10,13 @@ export class PlayerHandler {
         if (!playerName) return { error: "Username is required" }
         if (!lobbyRoom) return { error: "Lobby is required" }
     
-        const player = { id, playerName, lobbyRoom }
+        const player = { 
+            id: id, 
+            playerName: playerName, 
+            lobbyRoom: lobbyRoom,
+            readyState: false
+        }
+
         players.push(player)
         return { player }
     }
@@ -26,4 +32,12 @@ export class PlayerHandler {
     }
     
     static getPlayers = (lobbyRoom) => players.filter(player => player.lobbyRoom === lobbyRoom);
+
+    static setPlayerReady = (id, bool) => {
+        const player = this.getPlayer(id);
+
+        player.readyState = bool;
+
+        return bool;
+    }
 }
