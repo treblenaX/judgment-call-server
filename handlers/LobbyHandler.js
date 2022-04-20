@@ -3,7 +3,7 @@ import { PlayerHandler } from "./PlayerHandler.js";
 const lobbies = [];
 
 export class LobbyHandler {
-    static createLobby() {
+    static createLobby(gameMaster) {
         // Create valid lobby code
         let validLobby = false;
         let lobbyCode = '';
@@ -19,7 +19,7 @@ export class LobbyHandler {
         // Create lobby object
         const lobby = {
             lobbyCode: lobbyCode,
-            gameMaster: {},
+            gameMaster: gameMaster,
             players: []
         }
 

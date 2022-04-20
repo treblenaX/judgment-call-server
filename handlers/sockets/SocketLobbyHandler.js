@@ -21,20 +21,43 @@ export const connectToLobby = (socket, request) => {
         socket.join(lobbyCode);
         
         // Emit response + sucess back to client
+        const lobby = LobbyHandler.findLobby(lobbyCode);
         const response = {
             clientPlayer: player,
-            lobby: LobbyHandler.findLobby(lobbyCode)
+            lobby: lobby
         }
 
         Logger.info(`[${clientId(socket)} - ${playerName}] has connected to [${lobbyCode}].`);
 
         // Send verification to the client
         socket.emit(ServerSocketStates.PLAYER_CONNECTED_TO_LOBBY, response);
+
+        // Build lobby response
+        const lobbyResponse = {
+            lobby: lobby
+        }
+
         // Send update request for everyone in the room
-        socket.to(lobbyCode).emit(ServerSocketStates.UPDATE_LOBBY_INFORMATION);
+        socket.to(lobbyCode).emit(ServerSocketStates.UPDATE_LOBBY_INFORMATION, lobbyResponse);
     } catch (error) {
         socket.emit(ServerSocketStates.ERROR, error);
     }
 }
+
+// export const refreshLobbyInformation = (socket, request) => {
+//     try {
+//         // Build response for the socket room
+//         const response = {
+//             lobby: LobbyHandler.findLobby(lobbyCode)
+//         }
+
+//         // Send refresh response to room
+//         socket.to(lobbyCode).emit(ServerSocketStates.REFRESH_LOBBY_RESPONSE);
+//     } catch (error) {
+//         socket.emit(ServerSocketStates.ERROR, error);
+//     }
+// }
+
+// @TODO: socket disconnect handle
 
 const clientId = (socket) => socket.client.id;

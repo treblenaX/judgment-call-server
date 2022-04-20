@@ -1,10 +1,11 @@
 import express from 'express';
 import Logger from 'js-logger';
+import { GameHandler } from '../handlers/GameHandler.js';
 import { LobbyHandler } from '../handlers/LobbyHandler.js';
 var router = express.Router();
 
 router.get('/', (req, res, next) => {
-    res.send('lobby API - respond with a resource');
+    res.send(true);
 });
 
 /**
@@ -32,9 +33,9 @@ router.get('/isValid', (req, res, next) => {
  * Creates a new lobby.
  * @param { playerName } request
  */
-router.post('/createLobby', (req, res, next) => {
+router.post('/createLobby', async (req, res, next) => {
     let response = {
-        lobbyCode: LobbyHandler.createLobby()
+        lobbyCode: LobbyHandler.createLobby(await GameHandler.createGame())
     };
 
     if (!response.lobbyCode) {  // Error guard
@@ -42,7 +43,6 @@ router.post('/createLobby', (req, res, next) => {
     } else {    // Valid response
         response.message = 'New lobby has been created!';
     }
-
     Logger.info(response);
 
     res.type('json');

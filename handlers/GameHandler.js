@@ -82,9 +82,7 @@ export class GameHandler {
 
     }
 
-    static judgmentStage(lobby) {
-        
-    }
+    static judgmentStage(lobby) {}
     /** Deal helpers */
     static chooseScenario(gameFiles) {
         const scenarios = gameFiles.scenarios;

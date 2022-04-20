@@ -3,5 +3,5 @@ export const ServerSocketStates = {
     PLAYER_CONNECTED_TO_LOBBY: 'server:playerconnectedtolobby',
 
     /** Room Socket States */
-    UPDATE_LOBBY_INFORMATION: 'server:room:updatelobbyinformation',
+    UPDATE_LOBBY_INFORMATION: 'server:room:updatelobbyinformation'
 }

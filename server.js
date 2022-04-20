@@ -40,7 +40,11 @@ app.set('socketio', io);
 
 app.use(bodyParser.json());
 app.use(cors());
-Logger.useDefaults();
+Logger.useDefaults({
+  formatter: function (messages, context) {
+      messages.unshift(new Date().toUTCString())
+  }
+});
 app.use(express.static(path.resolve() + '/client/build'));
 app.use(express.static(path.join(__dirname, 'public')));  // public directory
 
@@ -50,6 +54,8 @@ const onConnection = (socket) => {
   welcomeUser(socket);
   // On need to connect to lobby
   socket.on(ClientSocketStates.CONNECT_TO_LOBBY, (request) => connectToLobby(socket, request));
+  // On need to refresh lobby information
+  // socket.on(ClientSocketStates.REFRESH_LOBBY_INFORMATION, (request) => refreshLobbyInformation(socket, request));
 }
 
 io.on(SocketStates.CONNECTION, onConnection);
