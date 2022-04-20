@@ -47,9 +47,7 @@ export class GameHandler {
 
         // Distribute the cards to each player
         for (let i = 0; i < players.length; i++) {
-            const player = players[i];
-
-            player.cards = {
+            players[i].cards = {
                 stakeholder: drawnSHArr[i],
                 principle: drawnPArr[i],
                 rating: drawnRArr[i]
@@ -57,7 +55,36 @@ export class GameHandler {
         }
     }
 
-    static reviewStage()
+    static reviewStage(lobby) {
+        // Init variables
+        const gameMaster = lobby.gameMaster;
+        const players = lobby.players;
+
+        // Change the game state to reivew
+        gameMaster.state = GameStates.REVIEW;
+
+        // Distribute review cards to each player
+        for (let i = 0; i < players.length; i++) {
+            players[i].answers = {
+                review: ''
+            };
+        }
+
+        // @TODO: set 10 MINS timer
+
+    }
+    
+    static discussionStage(lobby) {
+
+    }
+
+    static mitigationStage(lobby) {
+
+    }
+
+    static judgmentStage(lobby) {
+        
+    }
     /** Deal helpers */
     static chooseScenario(gameFiles) {
         const scenarios = gameFiles.scenarios;
@@ -100,7 +127,7 @@ export class GameHandler {
 
         for (let i = 0; i < playerCount; i++) {
             // Draw the card
-            let index = this.randomizeIndex(playerCount);
+            let index = this.randomizeIndex(choices.length);
             const card = choices[index];
 
             // Discard the card from the deck
@@ -113,6 +140,14 @@ export class GameHandler {
     }
 
     /** Review helpers */
+
+    /** Base helpers */
+    static resetPlayerReady(lobby) {
+        const players = lobby.players;
+        for (let i = 0; i < players.length; i++) {
+            players[i].readyState = false;
+        }
+    }
 
     /** Private function helpers */
     static randomizeIndex = (length) => {

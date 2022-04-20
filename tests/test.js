@@ -41,18 +41,26 @@ describe('Game stuff', () => {
         });
     });
     describe('DEAL', () => {
-        it('deal cards', async () => {
+        it('deal cards max lobby', async () => {
             const lobby = LobbyHandler.getLobbies()[0];
 
             // deal cards
             GameHandler.dealCards(lobby);
 
-            console.log(JSON.stringify(lobby, undefined, 2));
+            // console.log(JSON.stringify(lobby, undefined, 2));
 
             for (let i = 0; i < lobby.players.length; i++) {
                 const player = lobby.players[i];
+                const cards = player.cards;
 
-                expect(player).to.have.property('cards');
+                expect(cards).to.not.be.null;
+                expect(cards).to.have.property('stakeholder');
+                expect(cards).to.have.property('rating');
+                expect(cards).to.have.property('principle');
+
+                expect(cards.stakeholder).to.not.be.undefined;
+                expect(cards.rating).to.not.be.undefined;
+                expect(cards.principle).to.not.be.undefined;
             }
         });
     });
