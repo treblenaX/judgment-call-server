@@ -3,7 +3,8 @@ import { PlayerHandler } from "./PlayerHandler.js";
 const lobbies = [];
 
 export class LobbyHandler {
-    static createLobbyCode() {
+    static createLobby() {
+        // Create valid lobby code
         let validLobby = false;
         let lobbyCode = '';
 
@@ -15,26 +16,26 @@ export class LobbyHandler {
             }
         }
 
-        return lobbyCode;
-    }
-
-    static createLobby(code) {
-        if (!code || code == undefined) return false;
-
+        // Create lobby object
         const lobby = {
-            lobbyCode: code,
+            lobbyCode: lobbyCode,
             gameMaster: {},
-            playerIds: []
+            players: []
         }
 
-        lobbies.push(code);
+        // Add lobby to list of live lobbies
+        lobbies.push(lobby);
 
-        return true;
+        return lobbyCode;
     }
 
     static isLobbyValid(code) {
         const lobby = this.findLobby(code);
-        return (!lobby) ? false : true;
+        const payload = {
+            validLobby: (!lobby) ? false : true
+        }
+        
+        return payload;
     }
 
     static deleteLobby(code) {
@@ -44,20 +45,49 @@ export class LobbyHandler {
         return true;    // Lobby delete successful
     }
 
+    static getLobbies() {
+        return lobbies;
+    }
+
+    /**
+     * Lobby Player Functions
+     */
+    static getPlayerFromLobby = (id, lobbyCode) => {
+        // Find the lobby
+        const lobby = this.findLobby(lobbyCode);
+        // Find the player in lobby
+        const player = PlayerHandler.getPlayer(lobby.players, id);
+
+        return player;
+    }
+
+    static getPlayersInLobby = (lobbyCode) => {
+        // Find the lobby
+        const lobby = this.findLobby(lobbyCode);
+
+        return lobby.players;
+    }
+
+    static deletePlayerFromLobby = (id, lobbyCode) => {
+        // Find the lobby
+        const lobby = this.findLobby(lobbyCode);
+        // Delete the player from the lobby
+        const allPlayers = PlayerHandler.deletePlayer(lobby.players, id);
+        
+        // Reset the players inside the lobby
+        lobby.players = allPlayers;
+    }
+
+    static addPlayerToLobby = (player, lobbyCode) => {
+        // Find the lobby to add the player to
+        const lobby = this.findLobby(lobbyCode);
+
+        lobby.players.push(player);
+    }
+
     /**
      * Game Functions
      */
-
-    static addPlayerToLobby(code, playerId) {
-        // Find the lobby to add player to
-        const lobby = this.findLobby(code);
-
-        // Add the playerId to array
-        lobby.playerIds.push(playerId);
-
-        // Return success
-        return true;
-    }
 
     static isLobbyReady(code) {
         if (this.isLobbyValid(code)) {  // If the lobby is valid
@@ -82,7 +112,9 @@ export class LobbyHandler {
     let code = '';
   
     for (let i = 0; i < 6; i++) {
-      code += Math.floor(Math.random() * 9);
+        let number = Math.floor(Math.random() * 10);
+        if (number === 10) number = 9;
+        code += number;
     }
   
     return code;

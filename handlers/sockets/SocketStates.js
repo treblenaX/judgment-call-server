@@ -1,5 +1,8 @@
 export const SocketStates = {
+    CONNECTION: 'connection',
     /** Lobby Sockets States  */
+    // Lobby Connection
+    CONNECT_TO_LOBBY: 'CONNECT TO LOBBY',
     // Requested Events
     NEED_LOBBY_CODE: 'NEED LOBBY CODE',
     CLIENT_DISCONNECT: 'disconnect',

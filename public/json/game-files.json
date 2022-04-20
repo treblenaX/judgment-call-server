@@ -1,0 +1,101 @@
+{
+    "principles": [
+        "Transparency",
+        "Accountability",
+        "Fairness",
+        "Reliability",
+        "Privacy and Security",
+        "Inclusion",
+        "religious1",
+        "religious2",
+        "religious3"
+    ],
+    "stakeholders": [
+        {
+            "name": "dummy1"
+        },
+        {
+            "name": "dummy2"
+        },
+        {
+            "name": "dummy3"
+        },
+        {
+            "name": "dummy4"
+        },
+        {
+            "name": "dummy5"
+        },
+        {
+            "name": "dummy6"
+        },
+        {
+            "name": "dummy7"
+        },
+        {
+            "name": "dummy8"
+        },
+        {
+            "name": "dummy9"
+        },
+        {
+            "name": "dummy10"
+        }
+    ],
+    "scenarios": [
+        {
+            "name": "example1",
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ultricies nec felis vel rhoncus. Donec vel gravida sapien. Aliquam consequat faucibus sodales. Nunc pulvinar egestas pharetra. Aliquam in cursus dui. Aliquam mollis urna elementum augue viverra suscipit. Morbi est ante, bibendum sed leo vitae, hendrerit cursus nulla. Fusce ac feugiat mi.",
+            "stakeholdersMap": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9
+            ]
+        }
+    ],
+    "ratings": [
+        {
+            "rating": 1
+        },
+        {
+            "rating": 1
+        },
+        {
+            "rating": 1
+        },
+        {
+            "rating": 1
+        },
+        {
+            "rating": 3
+        },
+        {
+            "rating": 3
+        },
+        {
+            "rating": 3
+        },
+        {
+            "rating": 3
+        },
+        {
+            "rating": 5
+        },
+        {
+            "rating": 5
+        },
+        {
+            "rating": 5
+        },
+        {
+            "rating": 5
+        }
+    ]
+}

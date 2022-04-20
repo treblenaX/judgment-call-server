@@ -5,7 +5,7 @@
   "type": "module",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha tests/test.js",
     "debug": "./node_modules/nodemon/bin/nodemon.js server.js",
     "start": "node server.js"
   },
@@ -13,6 +13,7 @@
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.19.2",
+    "cors": "^2.8.5",
     "express": "^4.17.3",
     "jquery": "^3.6.0",
     "jQuery": "^1.7.4",
@@ -25,6 +26,7 @@
     "@babel/core": "^7.17.8",
     "@babel/node": "^7.16.8",
     "@babel/preset-env": "^7.16.11",
+    "mocha": "^9.2.2",
     "nodemon": "^2.0.15"
   }
 }

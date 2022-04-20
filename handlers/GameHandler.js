@@ -16,31 +16,119 @@ const GameStates = {
 }
 
 export class GameHandler {
-    static createGame(lobby) {
+    /** Public functions */
+    static async createGame() {
+        const gameMaster = {
+            state: GameStates.INIT,
+            gameFiles: await this.loadGameFiles()
+        }
+
+        return gameMaster;
+    }
+
+    static dealCards(lobby) {
+        // Init variables
         const gameMaster = lobby.gameMaster;
+        const players = lobby.players;
 
-        // Init state
-        gameMaster.state = GameStates.INIT;
-    }
-
-    static async chooseScenario() {
-        this.verifyGameFilesLoaded();
-
-        const scenarios = this.gameFiles.scenarios;
-
+        // Change the game state to deal
+        gameMaster.state = GameStates.DEAL;
         
-    }
+        // Choose the scenario and parse info
+        const scenarioInfo = this.chooseScenario(gameMaster.gameFiles);
 
-    static async dealCards(lobby) {
-        this.verifyGameFilesLoaded();
-        // 
-    }
-    
-    static async verifyGameFilesLoaded() {
-        if (!this.gameFiles) {
-            this.gameFiles = await loadGameFiles();
+        // Reset the gameMaster copy of stakeholders to match the scenario
+        gameMaster.gameFiles.stakeholders = scenarioInfo.stakeholders;
+
+        // Draw a card for each player
+        const drawnSHArr = this.drawCard(gameMaster.gameFiles.stakeholders, players.length);
+        const drawnPArr = this.drawCard(gameMaster.gameFiles.principles, players.length);
+        const drawnRArr = this.drawCard(gameMaster.gameFiles.ratings, players.length);
+
+        // Distribute the cards to each player
+        for (let i = 0; i < players.length; i++) {
+            const player = players[i];
+
+            player.cards = {
+                stakeholder: drawnSHArr[i],
+                principle: drawnPArr[i],
+                rating: drawnRArr[i]
+            };
         }
     }
 
-    static loadGameFiles = async () => JSON.parse(await fs.readFile('../json/game-files.json'));
+    static reviewStage()
+    /** Deal helpers */
+    static chooseScenario(gameFiles) {
+        const scenarios = gameFiles.scenarios;
+        const index = this.randomizeIndex(scenarios.length);
+        const scenario = scenarios[index];
+
+        return {
+            scenario_name: scenario.name,
+            scenario_description: scenario.description,
+            stakeholders: this.findStakeholders(gameFiles, scenario.stakeholdersMap)
+        }
+    }
+
+    static findStakeholders(gameFiles, stakeholderMap) {
+        const stakeholders = gameFiles.stakeholders;
+        const results = [];
+
+        for (let i = 0; i < stakeholderMap.length; i++) {
+            const index = stakeholderMap[i];
+            results.push(stakeholders[index]);
+        }
+
+        return results;
+    }
+
+    static chooseCard(files, chosenArr) {
+        const length = this.files.length;
+        const index = this.randomizeIndex(length);
+        
+        // Check to see if the index is already chosen
+        while (chosenArr.includes(index)) {
+            index = this.randomizeIndex(length);
+        }
+
+        return files[index];
+    }
+
+    static drawCard(choices, playerCount) {
+        const drawnArr = [];
+
+        for (let i = 0; i < playerCount; i++) {
+            // Draw the card
+            let index = this.randomizeIndex(playerCount);
+            const card = choices[index];
+
+            // Discard the card from the deck
+            choices.splice(index, 1);
+
+            drawnArr.push(card);
+        }
+
+        return drawnArr;
+    }
+
+    /** Review helpers */
+
+    /** Private function helpers */
+    static randomizeIndex = (length) => {
+        // const numberHolder = []; - in case we need to choose multiple
+        const ceiling = length * 4;
+        const randomNum = Math.floor(Math.random() * ceiling);
+
+        // If randomNum = ceiling then drop it down to prevent error
+        if (randomNum === ceiling) randomNum = ceiling - 1;
+
+        // Determine scenario number
+        const choice = randomNum / 4; 
+
+        //if (!numberHolder.includes(choice)) numberHolder.push(choice);
+        return Math.floor(choice);
+    }
+
+    static loadGameFiles = async () => JSON.parse(await fs.readFile(__dirname + '/../public/json/game-files.json'));
 }

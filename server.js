@@ -1,15 +1,28 @@
 import express from 'express';
 import http from 'http';
+import cors from 'cors';
 import bodyParser from 'body-parser';
 import { Server } from 'socket.io';
 import path from 'path';
 
-import getRouter from './routes/get.js';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+
+// Routes
+import indexRouter from './routes/index.js';
+import lobbyRouter from './routes/lobby.js';
+import testRouter from './routes/tests.js';
+
 import Logger from 'js-logger';
-import { LobbySockets } from './sockets/lobbySockets.js';
-import { LobbyHandler } from './handlers/LobbyHandler.js';
+import { SocketStates } from './handlers/sockets/SocketStates.js';
+import { ClientSocketStates } from './handlers/sockets/ClientSocketStates.js';
+import { welcomeUser } from './handlers/sockets/SocketConnectionHandler.js';
+import { connectToLobby } from './handlers/sockets/SocketLobbyHandler.js';
 
 const PORT = process.env.PORT || 3000;
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const router = express.Router();
 const app = express();
@@ -22,52 +35,33 @@ const io = new Server(server, {
   pingTimeout: 5000  // 5 seconds timeout
 });
 
-/** Init */
+/** Init middleware */
+app.set('socketio', io);
+
 app.use(bodyParser.json());
+app.use(cors());
 Logger.useDefaults();
 app.use(express.static(path.resolve() + '/client/build'));
+app.use(express.static(path.join(__dirname, 'public')));  // public directory
 
-// app.use(express.static(path.resolve() + '/test.html'));
+/** Sockets INIT */
+const onConnection = (socket) => {
+  // Log the user connection
+  welcomeUser(socket);
+  // On need to connect to lobby
+  socket.on(ClientSocketStates.CONNECT_TO_LOBBY, (request) => connectToLobby(socket, request));
+}
 
-/** Basic Routes */
-app.get('/', (req, res) => {
-  res.sendFile(path.resolve() + "/client/build/index.html");
-  // res.sendFile(path.resolve() + '/test.html');
-});
+io.on(SocketStates.CONNECTION, onConnection);
 
-/**
-   * SOCKET | CONNECTION
-   * New browser connects to the server and 
-   */
- io.on('connection', (socket) => {
-  // On create a lobby or join lobby connection, create the user
-  
-
-  // Display `connected` to client
-  LobbySockets.replyClientConnected(socket);
-
-  // LISTEN - lobby exists
-  LobbySockets.listenForLobbyExistence(socket);
-
-  // LISTEN - lobby code request
-  LobbySockets.listenForLobbyCodeNeed(socket, io.sockets);
-
-  // LISTEN - client join
-  LobbySockets.listenForClientJoinedLobby(socket);
-
-  // LISTEN - client disconnection
-  LobbySockets.listenForClientDisconnect(socket);
-
-  /** Lobby Listeners */
-  LobbySockets.sendInitLobbyInfo(socket, io.sockets);
-
-  LobbySockets.listenForPlayerReady(socket, io.sockets);
-});
-
-/** API */
-app.use('/api', getRouter);
+/** Routing */
+app.use('/', indexRouter);
+app.use('/api/lobby', lobbyRouter);
+app.use('/test', testRouter);
 
 server.listen(PORT, () => {
     console.log("Server is listening at port 3000");
 });
+
+export default app;
 
