@@ -1,4 +1,5 @@
 import express from 'express';
+import path from 'path';
 import { __dirname } from '../server.js';
 var router = express.Router();
 
