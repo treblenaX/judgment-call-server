@@ -24,7 +24,8 @@ export const connectToLobby = (socket, request) => {
         const lobby = LobbyHandler.findLobby(lobbyCode);
         const response = {
             clientPlayer: player,
-            lobby: lobby
+            lobby: lobby,
+            message: 'Player successfully connected to lobby.'
         }
 
         Logger.info(`[${clientId(socket)} - ${playerName}] has connected to [${lobbyCode}].`);
@@ -34,13 +35,44 @@ export const connectToLobby = (socket, request) => {
 
         // Build lobby response
         const lobbyResponse = {
-            lobby: lobby
+            lobby: lobby,
+            message: 'A new player has joined the lobby.'
         }
 
         // Send update request for everyone in the room
         socket.to(lobbyCode).emit(ServerSocketStates.UPDATE_LOBBY_INFORMATION, lobbyResponse);
     } catch (error) {
-        socket.emit(ServerSocketStates.ERROR, error);
+        socket.emit(ServerSocketStates.ERROR, `CODE: CTL_SLH : ${error}`);
+    }
+}
+
+export const toggleReadyUp = (socket, request) => {
+    const lobbyCode = request.lobbyCode;
+    const pId = request.pId;
+    const readyState = request.readyState;
+
+    try {
+        // Toggle the player's ready up status
+        LobbyHandler.togglePlayerReady(pId, lobbyCode, readyState);
+
+        // Double-check that the change is made; else throw Error
+        if (LobbyHandler.getPlayerReadyStatus(pId, lobbyCode) != readyState) {
+            throw new Error('Failed to change ready status.');
+        } else {
+            // Emit response + success back to room
+            const response = {
+                lobby: LobbyHandler.findLobby(lobbyCode),
+                message: 'A player has changed their ready status.'
+            }
+
+            // Send update request to requester socket
+            socket.emit(ServerSocketStates.UPDATE_LOBBY_INFORMATION, response);
+
+            // Send update request for everyone in the room
+            socket.to(lobbyCode).emit(ServerSocketStates.UPDATE_LOBBY_INFORMATION, response);
+        }
+    } catch (error) {
+        socket.emit(ServerSocketStates.ERROR, `CODE: TRU_SLH : ${error}`)
     }
 }
 

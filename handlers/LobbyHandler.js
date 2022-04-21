@@ -52,6 +52,23 @@ export class LobbyHandler {
     /**
      * Lobby Player Functions
      */
+    static togglePlayerReady = (id, lobbyCode, readyState) => {
+        // Find player in lobby
+        const player = this.getPlayerFromLobby(id, lobbyCode);
+
+        // Toggle the player's ready status
+        player.readyState = readyState;
+
+        return player;
+    }
+
+    static getPlayerReadyStatus = (id, lobbyCode) => {
+        // Find player in lobby
+        const player = this.getPlayerFromLobby(id, lobbyCode);
+
+        return player.readyState;
+    }
+
     static getPlayerFromLobby = (id, lobbyCode) => {
         // Find the lobby
         const lobby = this.findLobby(lobbyCode);

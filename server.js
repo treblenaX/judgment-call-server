@@ -17,7 +17,7 @@ import Logger from 'js-logger';
 import { SocketStates } from './handlers/sockets/SocketStates.js';
 import { ClientSocketStates } from './handlers/sockets/ClientSocketStates.js';
 import { welcomeUser } from './handlers/sockets/SocketConnectionHandler.js';
-import { connectToLobby } from './handlers/sockets/SocketLobbyHandler.js';
+import { connectToLobby, toggleReadyUp } from './handlers/sockets/SocketLobbyHandler.js';
 
 const PORT = process.env.PORT || 3000;
 
@@ -54,6 +54,8 @@ const onConnection = (socket) => {
   welcomeUser(socket);
   // On need to connect to lobby
   socket.on(ClientSocketStates.CONNECT_TO_LOBBY, (request) => connectToLobby(socket, request));
+  // On need to toggle ready up
+  socket.on(ClientSocketStates.TOGGLE_PLAYER_READY, (request) => toggleReadyUp(socket, request));
   // On need to refresh lobby information
   // socket.on(ClientSocketStates.REFRESH_LOBBY_INFORMATION, (request) => refreshLobbyInformation(socket, request));
 }
