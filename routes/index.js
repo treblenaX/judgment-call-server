@@ -5,7 +5,7 @@ var router = express.Router();
 
 /** Basic Routes */
 router.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'));
+    res.sendFile(path.join(__dirname, '..', 'public', 'client', 'build', 'index.html'));
 });
 
 export default router;
