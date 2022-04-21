@@ -24,7 +24,6 @@ const PORT = process.env.PORT || 3000;
 const __filename = fileURLToPath(import.meta.url);
 export const __dirname = dirname(__filename);
 
-const router = express.Router();
 const app = express();
 const server = http.createServer(app);
 const io = new Server(server, {
@@ -45,7 +44,7 @@ Logger.useDefaults({
       messages.unshift(new Date().toUTCString())
   }
 });
-// app.use(express.static(path.join(__dirname, 'public')));  // public directory
+app.use(express.static('public'));  // public directory
 app.use(express.static(path.join(__dirname, 'public', 'client', 'build')));   // public client build
 
 /** Sockets INIT */
@@ -68,7 +67,7 @@ app.use('/api/lobby', lobbyRouter);
 app.use('/test', testRouter);
 
 server.listen(PORT, () => {
-    console.log("Server is listening at port 3000");
+    console.log(`Server is listening at port ${PORT}`);
 });
 
 export default app;
