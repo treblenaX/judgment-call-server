@@ -4,7 +4,7 @@ var router = express.Router();
 
 /** Basic Routes */
 router.get('/', (req, res) => {
-    res.render('/client/build/index', { title: 'Judgment Call' });
+    res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'));
 });
 
 export default router;

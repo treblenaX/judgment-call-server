@@ -46,7 +46,7 @@ Logger.useDefaults({
   }
 });
 // app.use(express.static(path.join(__dirname, 'public')));  // public directory
-app.use(express.static(path.join(__dirname, 'public/client/build')))  // public client build
+app.use(express.static(path.join(__dirname, 'public', 'client', 'build')));   // public client build
 
 /** Sockets INIT */
 const onConnection = (socket) => {
