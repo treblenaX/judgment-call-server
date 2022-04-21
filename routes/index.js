@@ -8,7 +8,7 @@ router.get('/', (req, res) => {
     if (DEBUG) {
         res.sendFile(path.join(__dirname, 'public', 'client', 'build', 'index.html'));
     } else {
-        res.sendFile(path.join(__dirname, '..', 'public', 'client', 'build', 'index.html'));
+        res.sendFile('/app/public/client/build/index.html');
     }
 });
 

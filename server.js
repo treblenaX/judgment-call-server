@@ -46,11 +46,11 @@ Logger.useDefaults({
   }
 });
 /** Static files middleware */
-app.use(express.static('public'));  // public directory
+app.use(express.static('/app/public'));  // public directory
 if (DEBUG) {
   app.use(express.static(path.join(__dirname, 'public', 'client', 'build')));   // public client build
 } else {
-  app.use(express.static(path.join(__dirname, '..', 'public', 'client', 'build')));   // public client build
+  app.use(express.static('/app/public/client/build'));   // public client build
 }
 
 /** Sockets INIT */
