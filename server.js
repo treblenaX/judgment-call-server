@@ -19,7 +19,7 @@ import { ClientSocketStates } from './handlers/sockets/ClientSocketStates.js';
 import { welcomeUser } from './handlers/sockets/SocketConnectionHandler.js';
 import { connectToLobby, toggleReadyUp } from './handlers/sockets/SocketLobbyHandler.js';
 
-export const DEBUG = false;
+export const DEBUG = true;
 const PORT = process.env.PORT || 3000;
 
 const __filename = fileURLToPath(import.meta.url);

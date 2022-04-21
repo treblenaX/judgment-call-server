@@ -65,6 +65,8 @@ export const toggleReadyUp = (socket, request) => {
                 message: 'A player has changed their ready status.'
             }
 
+
+
             // Send update request to requester socket
             socket.emit(ServerSocketStates.UPDATE_LOBBY_INFORMATION, response);
 
