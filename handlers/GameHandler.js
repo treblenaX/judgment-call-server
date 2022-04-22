@@ -1,19 +1,10 @@
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 import { promises as fs } from 'fs';
+import { GameStates } from '../constants/GameStates.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
-
-const GameStates = {
-    INIT: 'INIT',
-    DEAL: 'DEAL',
-    REVIEW: 'REVIEW',
-    DISCUSS: 'DISCUSS',
-    MITIGATION: 'MITIGATION',
-    JUDGMENT_CALL: 'JUDGMENT CALL',
-    OUTPUT: 'OUTPUT'
-}
 
 export class GameHandler {
     /** Public functions */
@@ -24,6 +15,10 @@ export class GameHandler {
         }
 
         return gameMaster;
+    }
+
+    static changeGameState(gameMaster, state) {
+        gameMaster.state = state;
     }
 
     static dealCards(lobby) {
@@ -71,7 +66,7 @@ export class GameHandler {
         }
 
         // @TODO: set 10 MINS timer
-
+        
     }
     
     static discussionStage(lobby) {
@@ -83,6 +78,7 @@ export class GameHandler {
     }
 
     static judgmentStage(lobby) {}
+
     /** Deal helpers */
     static chooseScenario(gameFiles) {
         const scenarios = gameFiles.scenarios;

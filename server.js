@@ -61,8 +61,7 @@ const onConnection = (socket) => {
   socket.on(ClientSocketStates.CONNECT_TO_LOBBY, (request) => connectToLobby(socket, request));
   // On need to toggle ready up
   socket.on(ClientSocketStates.TOGGLE_PLAYER_READY, (request) => toggleReadyUp(socket, request));
-  // On need to refresh lobby information
-  // socket.on(ClientSocketStates.REFRESH_LOBBY_INFORMATION, (request) => refreshLobbyInformation(socket, request));
+  // On
 }
 
 io.on(SocketStates.CONNECTION, onConnection);

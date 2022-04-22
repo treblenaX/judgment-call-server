@@ -1,4 +1,7 @@
+import { GameStates } from "../constants/GameStates.js";
+import { GameHandler } from "./GameHandler.js";
 import { PlayerHandler } from "./PlayerHandler.js";
+import { TimerHandler } from "./TimerHandler.js";
 
 const lobbies = [];
 
@@ -20,8 +23,14 @@ export class LobbyHandler {
         const lobby = {
             lobbyCode: lobbyCode,
             gameMaster: gameMaster,
-            players: []
+            players: [],
+            readyStatus: {
+                isCountDown: false,
+                count: 0
+            }
         }
+
+        GameHandler.changeGameState(lobby.gameMaster, GameStates.LOBBY);
 
         // Add lobby to list of live lobbies
         lobbies.push(lobby);
@@ -54,10 +63,14 @@ export class LobbyHandler {
      */
     static togglePlayerReady = (id, lobbyCode, readyState) => {
         // Find player in lobby
+        const lobby = this.findLobby(lobbyCode);
         const player = this.getPlayerFromLobby(id, lobbyCode);
 
         // Toggle the player's ready status
         player.readyState = readyState;
+
+        // Update number of ready players in status
+        lobby.readyStatus.count += (readyState == true) ? 1 : -1;
 
         return player;
     }
@@ -108,15 +121,29 @@ export class LobbyHandler {
 
     static isLobbyReady(code) {
         if (this.isLobbyValid(code)) {  // If the lobby is valid
-            const players = PlayerHandler.getPlayers(code);
+            const lobby = LobbyHandler.findLobby(code);
+            const players = lobby.players;
+            const readyPlayers = lobby.readyStatus.count;
 
-            // If someone in lobby is not ready
-            return players.filter((player) => !player.readyState);
+            return (players.length === readyPlayers);
         }
+
+        return false;
     }
 
-    /** Private helper functions */
+    static verifyLobbyPlayerCount(code, lobby) {
+        if (this.isLobbyValid(code)) {
+
+            const count = lobby.players.length;
+
+            return (1 <= count && count <= 6);
+        }
+        return null;    // @TODO: return error
+    }
+
+    /** helper functions */
     static findLobby = (code) => lobbies.find(lobby => lobby.lobbyCode === code);
+    static setCountDown = (bool, lobby) => lobby.readyStatus.isCountDown = bool;
 }
 
 
