@@ -1,4 +1,5 @@
 import Logger from "js-logger";
+import { GameHandler } from "../GameHandler.js";
 import { LobbyHandler } from "../LobbyHandler.js";
 import { PlayerHandler } from "../PlayerHandler.js";
 import { TimerHandler } from "../TimerHandler.js";
@@ -80,13 +81,26 @@ export const toggleReadyUp = (socket, request) => {
 
             handleLobbyReady(() => {    // After `ms` seconds, verify lobby is still ready
                 if (LobbyHandler.isLobbyReady(lobbyCode)) {
-                    // Emit to the clients for the next phase
-                    emitToWholeLobby(socket, lobbyCode, ServerSocketStates.START_DEAL);
-                    Logger.info('Timer stopped - emitted game start state.');
+                    // Find the lobby in focus
+                    const lobby = LobbyHandler.findLobby(lobbyCode);
+                    // Draw cards for the lobby
+                    GameHandler.dealCards(lobby);
+
+                    const dealtResponse = {
+                        lobby: lobby,
+                        message: 'Cards have been dealt for the players.'
+                    };
+                    // Reset the lobby ready states
+                    LobbyHandler.resetLobbyReadyStatus(lobbyCode);
+
+                    // Tell client to refresh
+                    // emitToWholeLobby(socket, lobbyCode, ServerSocketStates.UPDATE_LOBBY_INFORMATION, dealtResponse);
+                    
+                    // Send phase change to the client
+                    emitToWholeLobby(socket, lobbyCode, ServerSocketStates.START_DEAL, dealtResponse);
                 } else {
                     // Emit to all clients that start up have been cancelled
                     emitToWholeLobby(socket, lobbyCode, ServerSocketStates.STOP_COUNTDOWN);
-                    Logger.info('Timer stopped - unsuccessful start.');
                 }
 
                 // Clean up after
@@ -97,6 +111,8 @@ export const toggleReadyUp = (socket, request) => {
         socket.emit(ServerSocketStates.ERROR, `CODE: TRU_SLH : ${error}`);
     }
 }
+
+
 
 /** Private helper functions */
 const handleLobbyReady = (callback, socket, request) => {
@@ -119,8 +135,6 @@ const handleLobbyReady = (callback, socket, request) => {
 
             // Start timer then check to see if received all client responses
             TimerHandler.setTimer(callback, ms, lobbyCode);
-
-            Logger.info(`Timer started.`);
         } else if (!isLobbyReady && isCountDown) { //  Handle someone unreadying when game about to start  
             emitToWholeLobby(socket, lobbyCode, ServerSocketStates.STOP_COUNTDOWN);
 
@@ -129,8 +143,6 @@ const handleLobbyReady = (callback, socket, request) => {
 
             // Stop the timer
             TimerHandler.deleteTimer(lobbyCode);
-
-            Logger.info(`Timer stopped.`);
         }
     } catch (error) {
         socket.emit(ServerSocketStates.ERROR, `CODE: HLR_SLH : ${error}`);

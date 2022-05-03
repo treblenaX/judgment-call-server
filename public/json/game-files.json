@@ -1,18 +1,46 @@
 {
     "principles": [
-        "Transparency",
-        "Accountability",
-        "Fairness",
-        "Reliability",
-        "Privacy and Security",
-        "Inclusion",
-        "religious1",
-        "religious2",
-        "religious3"
+        {
+            "name": "Transparency", 
+            "description": "laehfalekfh"
+        },
+        {
+            "name": "Accountability", 
+            "description": "laehfalekfh"
+        },
+        {
+            "name": "Fairness", 
+            "description": "laehfalekfh"
+        },
+        {
+            "name": "Reliability", 
+            "description": "laehfalekfh"
+        },
+        {
+            "name": "Privacy and Security", 
+            "description": "laehfalekfh"
+        },
+        {
+            "name": "Inclusion", 
+            "description": "laehfalekfh"
+        },
+        {
+            "name": "Human Dignity", 
+            "description": "laehfalekfh"
+        },
+        {
+            "name": "Human Agency", 
+            "description": "laehfalekfh"
+        },
+        {
+            "name": "Liberty", 
+            "description": "laehfalekfh"
+        }
     ],
     "stakeholders": [
         {
-            "name": "dummy1"
+            "name": "dummy1",
+            "description": "desc"
         },
         {
             "name": "dummy2"
@@ -46,6 +74,7 @@
         {
             "name": "example1",
             "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ultricies nec felis vel rhoncus. Donec vel gravida sapien. Aliquam consequat faucibus sodales. Nunc pulvinar egestas pharetra. Aliquam in cursus dui. Aliquam mollis urna elementum augue viverra suscipit. Morbi est ante, bibendum sed leo vitae, hendrerit cursus nulla. Fusce ac feugiat mi.",
+            "img": "test/img",
             "stakeholdersMap": [
                 0,
                 1,

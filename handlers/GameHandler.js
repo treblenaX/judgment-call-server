@@ -26,11 +26,15 @@ export class GameHandler {
         const gameMaster = lobby.gameMaster;
         const players = lobby.players;
 
-        // Change the game state to deal
-        gameMaster.state = GameStates.DEAL;
+        // Change the game state to review
+        gameMaster.state = GameStates.REVIEW;
         
         // Choose the scenario and parse info
         const scenarioInfo = this.chooseScenario(gameMaster.gameFiles);
+        gameMaster.scenario = {
+            scenario_name: scenarioInfo.scenario_name,
+            scenario_description: scenarioInfo.scenario_description
+        }
 
         // Reset the gameMaster copy of stakeholders to match the scenario
         gameMaster.gameFiles.stakeholders = scenarioInfo.stakeholders;

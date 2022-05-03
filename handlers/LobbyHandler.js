@@ -58,6 +58,19 @@ export class LobbyHandler {
         return lobbies;
     }
 
+    static resetLobbyReadyStatus = (lobbyCode) => {
+        // Find the lobby players
+        const lobby = LobbyHandler.findLobby(lobbyCode);
+        const players = LobbyHandler.getPlayersInLobby(lobbyCode);
+
+        // Unready them
+        players.map((player) => player.readyState = false);
+
+        // Reset the counter
+        lobby.readyStatus.count = 0;
+        lobby.readyStatus.isCountDown = false;
+    }
+
     /**
      * Lobby Player Functions
      */
@@ -131,6 +144,7 @@ export class LobbyHandler {
         return false;
     }
 
+    /** helper functions */
     static verifyLobbyPlayerCount(code, lobby) {
         if (this.isLobbyValid(code)) {
 
@@ -140,8 +154,6 @@ export class LobbyHandler {
         }
         return null;    // @TODO: return error
     }
-
-    /** helper functions */
     static findLobby = (code) => lobbies.find(lobby => lobby.lobbyCode === code);
     static setCountDown = (bool, lobby) => lobby.readyStatus.isCountDown = bool;
 }

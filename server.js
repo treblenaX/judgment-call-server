@@ -14,10 +14,10 @@ import lobbyRouter from './routes/lobby.js';
 import testRouter from './routes/tests.js';
 
 import Logger from 'js-logger';
-import { SocketStates } from './handlers/sockets/SocketStates.js';
 import { ClientSocketStates } from './handlers/sockets/ClientSocketStates.js';
 import { welcomeUser } from './handlers/sockets/SocketConnectionHandler.js';
 import { connectToLobby, toggleReadyUp } from './handlers/sockets/SocketLobbyHandler.js';
+import { receiveClientReview } from './handlers/sockets/SocketGameHandler.js';
 
 export const DEBUG = true;
 const PORT = process.env.PORT || 3000;
@@ -61,10 +61,11 @@ const onConnection = (socket) => {
   socket.on(ClientSocketStates.CONNECT_TO_LOBBY, (request) => connectToLobby(socket, request));
   // On need to toggle ready up
   socket.on(ClientSocketStates.TOGGLE_PLAYER_READY, (request) => toggleReadyUp(socket, request));
-  // On
+  // On need to receive client review
+  socket.on(ClientSocketStates.SEND_REVIEW, (request) => receiveClientReview(socket, request));
 }
 
-io.on(SocketStates.CONNECTION, onConnection);
+io.on('connection', onConnection);
 
 /** Routing */
 app.use('/', indexRouter);
