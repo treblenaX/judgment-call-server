@@ -107,6 +107,9 @@ export const readyClientDiscussion = (socket, request) => {
 
         handleLobbyReady(() => {    // After `ms` seconds, verify lobby is still ready
             if (LobbyHandler.isLobbyReady(lobbyCode)) {
+                
+                // Save the data
+                GameHandler.savePlayerDiscussionData(lobby);
 
                 // Start the discussion phase
                 const proceed = GameHandler.dealDiscussionTurn(lobby);

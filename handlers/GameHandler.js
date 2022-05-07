@@ -106,7 +106,7 @@ export class GameHandler {
         }
     }
 
-    static updatePlayerDiscussionData(lobby) {
+    static savePlayerDiscussionData(lobby) {
         const focusPlayer = lobby.gameMaster.focusPlayer;
         const players = lobby.players;
 
