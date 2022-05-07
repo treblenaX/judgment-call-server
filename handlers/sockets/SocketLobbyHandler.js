@@ -3,7 +3,8 @@ import { GameHandler } from "../GameHandler.js";
 import { LobbyHandler } from "../LobbyHandler.js";
 import { PlayerHandler } from "../PlayerHandler.js";
 import { TimerHandler } from "../TimerHandler.js";
-import { ServerSocketStates } from "./ServerSocketStates.js"
+import { ServerSocketStates } from "../../constants/ServerSocketStates.js"
+import { GameStates } from "../../constants/GameStates.js";
 
 export const connectToLobby = (socket, request) => {
     const lobbyCode = request.lobbyCode;
@@ -54,9 +55,9 @@ export const toggleReadyUp = (socket, request) => {
     const readyState = request.readyState;
 
     try {
-        const lobby = LobbyHandler.findLobby(lobbyCode);
+        const gameMaster = LobbyHandler.findLobby(lobbyCode).gameMaster;
 
-        // Toggle the player's ready up s
+        // Toggle the player's ready up 
         LobbyHandler.togglePlayerReady(pId, lobbyCode, readyState);
 
         // Double-check that the change is made; else throw Error
@@ -76,28 +77,35 @@ export const toggleReadyUp = (socket, request) => {
             // If lobby is ready
             const handleRequest = {
                 lobbyCode: lobbyCode,
-                ms: 7000
+                ms: 1000    // @TODO Change back
             };
 
             handleLobbyReady(() => {    // After `ms` seconds, verify lobby is still ready
                 if (LobbyHandler.isLobbyReady(lobbyCode)) {
                     // Find the lobby in focus
                     const lobby = LobbyHandler.findLobby(lobbyCode);
-                    // Draw cards for the lobby
-                    GameHandler.dealCards(lobby);
 
-                    const dealtResponse = {
-                        lobby: lobby,
-                        message: 'Cards have been dealt for the players.'
-                    };
                     // Reset the lobby ready states
                     LobbyHandler.resetLobbyReadyStatus(lobbyCode);
 
-                    // Tell client to refresh
-                    // emitToWholeLobby(socket, lobbyCode, ServerSocketStates.UPDATE_LOBBY_INFORMATION, dealtResponse);
-                    
-                    // Send phase change to the client
-                    emitToWholeLobby(socket, lobbyCode, ServerSocketStates.START_DEAL, dealtResponse);
+                    switch (gameMaster.state) {
+                        case GameStates.LOBBY:
+                            // Draw cards for the lobby
+                            GameHandler.dealCards(lobby);
+
+                            emitToWholeLobby(socket, lobbyCode, ServerSocketStates.START_DEAL, response);
+                            return;
+                        case GameStates.DISCUSS:
+                            // Go to next turn
+                            const proceed = GameHandler.dealDiscussionTurn(lobby);
+
+                            emitToWholeLobby(socket, lobbyCode, 
+                                (proceed) 
+                                    ? ServerSocketStates.START_MITIGATION
+                                    : ServerSocketStates.START_DISCUSSION_TURN
+                                , response);
+                            return;
+                    }
                 } else {
                     // Emit to all clients that start up have been cancelled
                     emitToWholeLobby(socket, lobbyCode, ServerSocketStates.STOP_COUNTDOWN);
@@ -105,7 +113,7 @@ export const toggleReadyUp = (socket, request) => {
 
                 // Clean up after
                 TimerHandler.deleteTimer(lobbyCode);
-            }, socket, handleRequest)
+            }, socket, handleRequest);
         }
     } catch (error) {
         socket.emit(ServerSocketStates.ERROR, `CODE: TRU_SLH : ${error}`);
@@ -113,9 +121,7 @@ export const toggleReadyUp = (socket, request) => {
 }
 
 
-
-/** Private helper functions */
-const handleLobbyReady = (callback, socket, request) => {
+export const handleLobbyReady = (callback, socket, request) => {
     const lobbyCode = request.lobbyCode;
     const ms = request.ms;
 

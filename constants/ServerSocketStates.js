@@ -7,5 +7,7 @@ export const ServerSocketStates = {
     ALL_PLAYERS_READY: 'server:room:allplayersready',
     STOP_COUNTDOWN: 'server:room:stopcountdown',
     START_DEAL: 'server:room:startdeal',
-    DEALT_CARDS: 'server:room:dealtcards',
+    DIRECT_TO_DISCUSSION: 'server:room:directtodiscussion',
+    START_DISCUSSION_TURN: 'server:room:startdiscussionturn',
+    START_MITIGATION: 'server:room:startmitigation'
 }

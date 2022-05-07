@@ -19,7 +19,10 @@ export class PlayerHandler {
             pId: this.getNewPlayerId(),
             playerName: playerName,
             lobbyCode: lobbyCode,
-            readyState: false
+            readyState: false,
+            data: {
+                review: ''
+            }
         }
 
         return player;

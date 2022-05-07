@@ -65,7 +65,7 @@ export class LobbyHandler {
 
         // Unready them
         players.map((player) => player.readyState = false);
-
+ 
         // Reset the counter
         lobby.readyStatus.count = 0;
         lobby.readyStatus.isCountDown = false;

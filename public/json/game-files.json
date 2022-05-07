@@ -43,31 +43,40 @@
             "description": "desc"
         },
         {
-            "name": "dummy2"
+            "name": "dummy2",
+            "description": "desc"
         },
         {
-            "name": "dummy3"
+            "name": "dummy3",
+            "description": "desc"
         },
         {
-            "name": "dummy4"
+            "name": "dummy4",
+            "description": "desc"
         },
         {
-            "name": "dummy5"
+            "name": "dummy5",
+            "description": "desc"
         },
         {
-            "name": "dummy6"
+            "name": "dummy6",
+            "description": "desc"
         },
         {
-            "name": "dummy7"
+            "name": "dummy7",
+            "description": "desc"
         },
         {
-            "name": "dummy8"
+            "name": "dummy8",
+            "description": "desc"
         },
         {
-            "name": "dummy9"
+            "name": "dummy9",
+            "description": "desc"
         },
         {
-            "name": "dummy10"
+            "name": "dummy10",
+            "description": "desc"
         }
     ],
     "scenarios": [
@@ -91,40 +100,40 @@
     ],
     "ratings": [
         {
-            "rating": 1
+            "name": 1
         },
         {
-            "rating": 1
+            "name": 1
         },
         {
-            "rating": 1
+            "name": 1
         },
         {
-            "rating": 1
+            "name": 1
         },
         {
-            "rating": 3
+            "name": 3
         },
         {
-            "rating": 3
+            "name": 3
         },
         {
-            "rating": 3
+            "name": 3
         },
         {
-            "rating": 3
+            "name": 3
         },
         {
-            "rating": 5
+            "name": 5
         },
         {
-            "rating": 5
+            "name": 5
         },
         {
-            "rating": 5
+            "name": 5
         },
         {
-            "rating": 5
+            "name": 5
         }
     ]
 }

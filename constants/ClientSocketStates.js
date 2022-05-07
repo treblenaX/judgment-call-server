@@ -4,5 +4,7 @@ export const ClientSocketStates = {
     CHECK_LOBBY_READY_STATUS: 'client:room:checklobbyreadystatus',
     TOGGLE_PLAYER_READY: 'client:toggleplayerready',
     CARDS_DEALT: 'client:cardsdealt',
-    SEND_REVIEW: 'client:sendreview'
+    SEND_REVIEW: 'client:sendreview',
+    UPDATE_DISCUSSION: 'client:updatediscussion',
+    DISCUSSION_READY: 'client:discussionready'
 } // @TODO: fix lobby ready status stuff

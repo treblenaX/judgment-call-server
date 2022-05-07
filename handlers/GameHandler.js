@@ -2,6 +2,8 @@ import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 import { promises as fs } from 'fs';
 import { GameStates } from '../constants/GameStates.js';
+import { LobbyHandler } from './LobbyHandler.js';
+import { PlayerHandler } from './PlayerHandler.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -32,9 +34,9 @@ export class GameHandler {
         // Choose the scenario and parse info
         const scenarioInfo = this.chooseScenario(gameMaster.gameFiles);
         gameMaster.scenario = {
-            scenario_name: scenarioInfo.scenario_name,
-            scenario_description: scenarioInfo.scenario_description
-        }
+            name: scenarioInfo.name,
+            description: scenarioInfo.description
+        };
 
         // Reset the gameMaster copy of stakeholders to match the scenario
         gameMaster.gameFiles.stakeholders = scenarioInfo.stakeholders;
@@ -49,32 +51,75 @@ export class GameHandler {
             players[i].cards = {
                 stakeholder: drawnSHArr[i],
                 principle: drawnPArr[i],
-                rating: drawnRArr[i]
+                rating: drawnRArr[i],
+                scenario: scenarioInfo
             };
         }
     }
-
-    static reviewStage(lobby) {
+    
+    static dealDiscussionTurn(lobby) {
         // Init variables
         const gameMaster = lobby.gameMaster;
         const players = lobby.players;
 
-        // Change the game state to reivew
-        gameMaster.state = GameStates.REVIEW;
+        // Set the game state to 'DISCUSSION'
+        gameMaster.state = GameStates.DISCUSS;
 
-        // Distribute review cards to each player
-        for (let i = 0; i < players.length; i++) {
-            players[i].answers = {
-                review: ''
+        // Init playersGone array to keep track of players who have gone. 
+        if (!gameMaster.playersGone) gameMaster.playersGone = [];
+
+        const playersGone = gameMaster.playersGone;
+
+        // Add a focus window on who's being discussed
+        gameMaster.focusPlayer = {};
+
+        if (gameMaster.playersGone.length == players.length) { // Everyone has gone
+            return true;
+        } else {
+            // Choose player who hasn't gone yet
+            const player = players.find(player => !playersGone.includes(player.pId));
+
+            // Error guard
+            if (!player) throw new Error('Can\'t find player who hasn\'t gone.');
+
+            // Compile info if player who hasn't gone
+            const review = player.data.review;
+            const cards = player.cards;
+
+            // Mark that the player has gone
+            playersGone.push(player.pId);
+
+            // Update the focus player window
+            gameMaster.focusPlayer = {
+                pId: player.pId,
+                stakeholder: cards.stakeholder,
+                review: review,
+                rating: cards.rating,
+                data: {
+                    benefits: [],
+                    harms: [],
+                    themes: []
+                }
             };
+
+            return false;
         }
-
-        // @TODO: set 10 MINS timer
-        
     }
-    
-    static discussionStage(lobby) {
 
+    static updatePlayerDiscussionData(lobby) {
+        const focusPlayer = lobby.gameMaster.focusPlayer;
+        const players = lobby.players;
+
+        const player = PlayerHandler.getPlayer(players, focusPlayer.pId);
+        // Save the discussion data
+        player.data.discussion = focusPlayer.data;
+    }
+
+    static isDoneDiscuss = (lobby) => {
+        const players = lobby.players;
+        const playersGone = lobby.gameMaster.playersGone;
+
+        return players.length == playersGone.length;
     }
 
     static mitigationStage(lobby) {
@@ -90,8 +135,8 @@ export class GameHandler {
         const scenario = scenarios[index];
 
         return {
-            scenario_name: scenario.name,
-            scenario_description: scenario.description,
+            name: scenario.name,
+            description: scenario.description,
             stakeholders: this.findStakeholders(gameFiles, scenario.stakeholdersMap)
         }
     }
