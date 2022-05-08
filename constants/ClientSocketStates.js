@@ -6,5 +6,7 @@ export const ClientSocketStates = {
     CARDS_DEALT: 'client:cardsdealt',
     SEND_REVIEW: 'client:sendreview',
     UPDATE_DISCUSSION: 'client:updatediscussion',
-    DISCUSSION_READY: 'client:discussionready'
+    DISCUSSION_READY: 'client:discussionready',
+    SEND_MITIGATION: 'client:sendmitigation',
+    SEND_JUDGMENT_CALL: 'client:sendjudgmentcall'
 } // @TODO: fix lobby ready status stuff

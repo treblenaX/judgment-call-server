@@ -9,5 +9,7 @@ export const ServerSocketStates = {
     START_DEAL: 'server:room:startdeal',
     DIRECT_TO_DISCUSSION: 'server:room:directtodiscussion',
     START_DISCUSSION_TURN: 'server:room:startdiscussionturn',
-    START_MITIGATION: 'server:room:startmitigation'
+    START_MITIGATION: 'server:room:startmitigation',
+    START_JUDGMENT_CALL: 'server:room:startjudgmentcall',
+    START_SUMMARY: 'server:room:startsummary'
 }

@@ -17,7 +17,7 @@ import Logger from 'js-logger';
 import { ClientSocketStates } from './constants/ClientSocketStates.js';
 import { welcomeUser } from './handlers/sockets/SocketConnectionHandler.js';
 import { connectToLobby, toggleReadyUp } from './handlers/sockets/SocketLobbyHandler.js';
-import { readyClientDiscussion, receiveClientReview, updateClientDiscussion } from './handlers/sockets/SocketGameHandler.js';
+import { readyClientDiscussion, receiveClientJudgment, receiveClientMitigation, receiveClientReview, updateClientDiscussion } from './handlers/sockets/SocketGameHandler.js';
 
 export const DEBUG = true;
 const PORT = process.env.PORT || 3000;
@@ -67,6 +67,10 @@ const onConnection = (socket) => {
   socket.on(ClientSocketStates.UPDATE_DISCUSSION, (request) => updateClientDiscussion(socket, request));
   // On need to ready up in discussion
   socket.on(ClientSocketStates.DISCUSSION_READY, (request) => readyClientDiscussion(socket, request));
+  // On need to receive mitigation
+  socket.on(ClientSocketStates.SEND_MITIGATION, (request) => receiveClientMitigation(socket, request));
+  // On need to receive judgment call
+  socket.on(ClientSocketStates.SEND_JUDGMENT_CALL, (request) => receiveClientJudgment(socket, request));
 }
 
 io.on('connection', onConnection);

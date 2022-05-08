@@ -122,11 +122,28 @@ export class GameHandler {
         return players.length == playersGone.length;
     }
 
-    static mitigationStage(lobby) {
+    static dealMitigation(lobby) {
+        // Init variables
+        const gameMaster = lobby.gameMaster;
 
+        // Change the state
+        gameMaster.state = GameStates.MITIGATION;
     }
 
-    static judgmentStage(lobby) {}
+    static dealJudgment(lobby) {
+        // Init variables
+        const gameMaster = lobby.gameMaster;
+
+        // Change the state
+        gameMaster.state = GameStates.JUDGMENT_CALL;
+    }
+
+    static dealSummary(lobby) {
+        // Init variables
+        const gameMaster = lobby.gameMaster;
+        // Change the state
+        gameMaster.state = GameStates.OUTPUT;
+    }
 
     /** Deal helpers */
     static chooseScenario(gameFiles) {
