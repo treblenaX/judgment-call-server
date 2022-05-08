@@ -1,82 +1,82 @@
 {
     "principles": [
         {
-            "name": "Transparency", 
-            "description": "laehfalekfh"
+            "name": "Transparency",
+            "description": "Create systems and outputs that are understandable to relevant stakeholders."
         },
         {
-            "name": "Accountability", 
-            "description": "laehfalekfh"
+            "name": "Accountability",
+            "description": "Take responsibility for how systems operate and their impact on society."
         },
         {
-            "name": "Fairness", 
-            "description": "laehfalekfh"
+            "name": "Fairness",
+            "description": "Treat all stakeholders equitably and prevent undesirable stereotypes and biases."
         },
         {
-            "name": "Reliability", 
-            "description": "laehfalekfh"
+            "name": "Reliability & Safety",
+            "description": "Build systems to perform safely even in the worst-case scenario."
         },
         {
-            "name": "Privacy and Security", 
-            "description": "laehfalekfh"
+            "name": "Privacy and Security",
+            "description": "Protect data from misuse and unintentional access to ensure privacy rights."
         },
         {
-            "name": "Inclusion", 
-            "description": "laehfalekfh"
+            "name": "Inclusion",
+            "description": "Empower everyone, regardless of ability, and engage people by providing channels for feedback."
         },
         {
-            "name": "Human Dignity", 
-            "description": "laehfalekfh"
+            "name": "Human Dignity",
+            "description": "Create systems that ensure and promote the value of all humans."
         },
         {
-            "name": "Human Agency", 
-            "description": "laehfalekfh"
+            "name": "Human Agency",
+            "description": "Allow humans to act in relation to system inputs, outputs, and decisions."
         },
         {
-            "name": "Liberty", 
-            "description": "laehfalekfh"
+            "name": "Liberty",
+            "description": "Capacity to resist causality and initiate new lines of action."
         }
     ],
     "stakeholders": [
         {
-            "name": "dummy1",
+            "name": "Mithraic Leader",
+            "description": "Little is known about the Mithraic social structure. Soldiers hold conventional military ranks, such as Captain, but the Mithraic clergy is a hierarchy with unique titles. The title for the head of the Mithraic religion is unknown, but second-highest rank is Heliodromus. Lesser ranks or positions in the hierarchy include clerics and monks. Upon the destruction of the Ark of Heaven in 2157, the leader of the Mithraic was killed. Ambrose, possibly a Heliodromus, survived the crash and was the highest-ranking cleric still alive. Per the Mithraic line of succession, Ambrose was automatically elevated to the head of the religion and leader of the surviving Mithraic believers, who referred to him as His Eminence. Following Ambrose's death, leadership would next have passed to Justina, but the Mithraic chose to follow Marcus instead since they believed he was communicating with Sol. When Marcus was exiled, Justina was elevated to her rightful place."
+        },
+        {
+            "name": "Atheist Leader",
             "description": "desc"
         },
         {
-            "name": "dummy2",
+            "name": "Mother",
+            "description": "Mother is an android with a secret past who has been programmed to raise a brood of human children on Kepler-22b. In addition to teaching the children to survive, Mother must also keep them from believing in the unreal; to ensure this virgin planet isn’t torn apart by the same religious differences that lead the Earth to its ultimate destruction. Mother hopes her family will serve as the nucleus for a peaceful, technocratic colony — a new beginning for humanity. But as she struggles to mold these growing humans, she also begins uncovering secrets hidden within her own programming, secrets that could help her protect her family, but could just as easily destroy them."
+        },
+        {
+            "name": "Father",
+            "description": "Father is android whose devotion to his human children is matched only by his devotion to Mother. Father is a considerably less complex model than Mother, but thanks to his wisdom and patience, he is no less important to the family’s survival. Like many human fathers, Father wants to be funny — especially in the eyes of Mother — but it’s a skill he often struggles with. What he is good at is always being there when you need him."
+        },
+        {
+            "name": "Children of the Ark",
             "description": "desc"
         },
         {
-            "name": "dummy3",
+            "name": "Kepler-22b Inhabitants",
             "description": "desc"
         },
         {
-            "name": "dummy4",
+            "name": "Colonists",
             "description": "desc"
         },
         {
-            "name": "dummy5",
+            "name": "Androids",
             "description": "desc"
         },
         {
-            "name": "dummy6",
-            "description": "desc"
+            "name": "Campion and Children of Mother/Father",
+            "description": "Campion, a scrappy and soulful 12-year-old boy who was raised by Mother and Father since birth. When a ship of humans arrives from Earth, Campion is exposed to followers of religion for the first time in his life, and starts to question whether his android parents really know what’s best for him"
         },
         {
-            "name": "dummy7",
-            "description": "desc"
-        },
-        {
-            "name": "dummy8",
-            "description": "desc"
-        },
-        {
-            "name": "dummy9",
-            "description": "desc"
-        },
-        {
-            "name": "dummy10",
-            "description": "desc"
+            "name": "Mithraic Followers",
+            "description": "The Mithraic get their name from a real-world ancient religious cult of the god Mithras. The god Mitra originally came from ancient Persia, or modern Iran. At the height of the Roman Empire, he began to be worshipped as Mithras in a Roman mystery cult. The cult became very popular, especially with soldiers. The sun god Sol was originally a separate god, but Mithras was often worshipped together with Sol Invictus, the unconquerable sun."
         }
     ],
     "scenarios": [

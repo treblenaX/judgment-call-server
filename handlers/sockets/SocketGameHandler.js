@@ -221,11 +221,19 @@ export const receiveClientJudgment = (socket, request) => {
         // Toggle the player's ready up 
         LobbyHandler.togglePlayerReady(pId, lobbyCode, readyState);
 
+        var currentdate = new Date(); 
+        var datetime = currentdate.getDate() + "/"
+                        + (currentdate.getMonth()+1)  + "/" 
+                        + currentdate.getFullYear() + " @ "  
+                        + currentdate.getHours() + ":"  
+                        + currentdate.getMinutes() + ":" 
+                        + currentdate.getSeconds();
+
         // Check if the entire player is readied up
         // Init response
         const response = {
             lobby: lobby,
-            timestamp: new Date().toLocaleTimeString()
+            timestamp: datetime
         };
 
         const handleRequest = {
