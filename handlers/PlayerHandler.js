@@ -14,8 +14,9 @@ export class PlayerHandler {
         return id;
     }
 
-    static createPlayer = (playerName, lobbyCode) => {
+    static createPlayer = (playerName, lobbyCode, socketId) => {
         const player = {
+            socketId: socketId,
             pId: this.getNewPlayerId(),
             playerName: playerName,
             lobbyCode: lobbyCode,

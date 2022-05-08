@@ -48,10 +48,15 @@ export class LobbyHandler {
     }
 
     static deleteLobby(code) {
-        const index = lobbies.indexOf(code);
+        const index = lobbies.findIndex(lobby => lobby.lobbyCode === code);
         if (index < 0) return false;    // Lobby delete unsuccessful - lobby doesn't exist.
-        lobbies.splice(index, 1);
+        lobbies.splice(index, 1)[0];
         return true;    // Lobby delete successful
+    }
+    
+    static deletePlayer = (players, id) => {
+        const index = players.findIndex((player) => player.pId == id);
+        if (index !== -1) return players.splice(index, 1)[0];
     }
 
     static getLobbies() {

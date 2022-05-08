@@ -16,7 +16,7 @@ import testRouter from './routes/tests.js';
 import Logger from 'js-logger';
 import { ClientSocketStates } from './constants/ClientSocketStates.js';
 import { welcomeUser } from './handlers/sockets/SocketConnectionHandler.js';
-import { connectToLobby, toggleReadyUp } from './handlers/sockets/SocketLobbyHandler.js';
+import { connectToLobby, handleUserDisconnect, toggleReadyUp } from './handlers/sockets/SocketLobbyHandler.js';
 import { readyClientDiscussion, receiveClientJudgment, receiveClientMitigation, receiveClientReview, updateClientDiscussion } from './handlers/sockets/SocketGameHandler.js';
 
 export const DEBUG = true;
@@ -71,6 +71,9 @@ const onConnection = (socket) => {
   socket.on(ClientSocketStates.SEND_MITIGATION, (request) => receiveClientMitigation(socket, request));
   // On need to receive judgment call
   socket.on(ClientSocketStates.SEND_JUDGMENT_CALL, (request) => receiveClientJudgment(socket, request));
+  socket.on('disconnect', (reason) => {
+    handleUserDisconnect(socket);
+  });
 }
 
 io.on('connection', onConnection);

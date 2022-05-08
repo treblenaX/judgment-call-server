@@ -15,7 +15,7 @@ export const connectToLobby = (socket, request) => {
         if (!LobbyHandler.isLobbyValid(lobbyCode)) throw new Error('Lobby does not exist.');
 
         // Create the player
-        const player = PlayerHandler.createPlayer(playerName, lobbyCode);
+        const player = PlayerHandler.createPlayer(playerName, lobbyCode, socket.client.id);
 
         // Add the player to the lobby
         LobbyHandler.addPlayerToLobby(player, lobbyCode);
@@ -77,7 +77,7 @@ export const toggleReadyUp = (socket, request) => {
             // If lobby is ready
             const handleRequest = {
                 lobbyCode: lobbyCode,
-                ms: 7000 
+                ms: 1000 
             };
 
             handleLobbyReady(() => {    // After `ms` seconds, verify lobby is still ready
@@ -155,8 +155,31 @@ export const handleLobbyReady = (callback, socket, request) => {
     }
 }
 
+export const handleUserDisconnect = (socket) => {
+    const clientId = socket.client.id;
+    const lobbies = LobbyHandler.getLobbies();
 
-// @TODO: socket disconnect handle
+    // Find the player
+    lobbies.forEach(lobby => {
+        const players = lobby.players;
+        const player = players.find(player => player.socketId === clientId);
+
+        if (player) {   // If the player is found
+            // Delete the player
+            PlayerHandler.deletePlayer(players, player.pId);
+        }
+    });
+
+    // Scan through the lobbies and delete any empty lobbies @TODO make more efficient
+    lobbies.forEach(lobby => {
+        const count = lobby.players.length;
+        const lobbyCode = lobby.lobbyCode;
+        if (count == 0) {
+            Logger.info(`[Lobby - ${lobbyCode}] has been deleted.`);
+            LobbyHandler.deleteLobby(lobbyCode);
+        }
+    });
+}
 
 const emitToWholeLobby = (socket, lobbyCode, event, response) => {
     socket.to(lobbyCode).emit(event, response); // Emit to party
