@@ -143,7 +143,7 @@ export class LobbyHandler {
             const players = lobby.players;
             const readyPlayers = lobby.readyStatus.count;
 
-            return (players.length === readyPlayers);
+            return (players.length <= readyPlayers);
         }
 
         return false;
@@ -155,7 +155,7 @@ export class LobbyHandler {
 
             const count = lobby.players.length;
 
-            return (4 <= count && count <= 6);
+            return (1 <= count && count <= 6);
         }
         return null;    // @TODO: return error
     }

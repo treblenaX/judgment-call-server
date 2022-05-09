@@ -37,6 +37,7 @@ router.post('/createLobby', async (req, res, next) => {
     let response = {
         lobbyCode: LobbyHandler.createLobby(await GameHandler.createGame())
     };
+    console.log(response);
 
     if (!response.lobbyCode) {  // Error guard
         response.error = 'There was an error creating the lobby code.';
