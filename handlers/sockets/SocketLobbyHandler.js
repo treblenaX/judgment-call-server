@@ -77,7 +77,7 @@ export const toggleReadyUp = (socket, request) => {
             // If lobby is ready
             const handleRequest = {
                 lobbyCode: lobbyCode,
-                ms: 1000 
+                ms: 7000 
             };
 
             handleLobbyReady(() => {    // After `ms` seconds, verify lobby is still ready

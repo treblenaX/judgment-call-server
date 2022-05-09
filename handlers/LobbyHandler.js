@@ -155,7 +155,7 @@ export class LobbyHandler {
 
             const count = lobby.players.length;
 
-            return (1 <= count && count <= 6);
+            return (4 <= count && count <= 6);
         }
         return null;    // @TODO: return error
     }

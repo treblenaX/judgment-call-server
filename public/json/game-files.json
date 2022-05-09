@@ -81,8 +81,42 @@
     ],
     "scenarios": [
         {
-            "name": "example1",
-            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ultricies nec felis vel rhoncus. Donec vel gravida sapien. Aliquam consequat faucibus sodales. Nunc pulvinar egestas pharetra. Aliquam in cursus dui. Aliquam mollis urna elementum augue viverra suscipit. Morbi est ante, bibendum sed leo vitae, hendrerit cursus nulla. Fusce ac feugiat mi.",
+            "name": "Emotion AI",
+            "description": "Emotion AI is a subset of artificial intelligence that measures, understands, simulates, and reacts to human emotions. It’s also known as affective computing, or artificial emotional intelligence. Mother and Father in Raised by Wolves exhibit an imagined implementation of Emotion AI.",
+            "img": "test/img",
+            "stakeholdersMap": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9
+            ]
+        },
+        {
+            "name": "Necromancer",
+            "description": "Necromancers are superweapons in Raised by Wolves. A Necromancer is a model of military android designed by the Mithraic as a weapon against the atheists, during the Religious War in the twenty-second century. Necromancers are extremely dangerous and are essentially killing machines, armed with the ability to disintegrate any living thing using powerful soundwaves and to melt or freeze any physical surface with their breath. These dangerous traits are heightened by their being able to fly, shape-shift, and induce sleep, giving them physical and psychological advantages over their targets. However, their more lethal abilities cannot be activated without their eyes, which, upon being removed, render necromancers incapable of transforming to their metallic form.",
+            "img": "test/img",
+            "stakeholdersMap": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9
+            ]
+        },
+        {
+            "name": "Eyeball Scanners",
+            "description": "Eyeball scanners are a type of biometric authentication. Biometrics are body measurements and calculations related to human characteristics. Biometric authentication (or realistic authentication) is used in computer science as a form of identification and access control. It is also used to identify individuals in groups that are under surveillance. Biometric identifiers are the distinctive, measurable characteristics used to label and describe individuals.",
             "img": "test/img",
             "stakeholdersMap": [
                 0,
