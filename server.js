@@ -19,7 +19,7 @@ import { welcomeUser } from './handlers/sockets/SocketConnectionHandler.js';
 import { connectToLobby, handleUserDisconnect, toggleReadyUp } from './handlers/sockets/SocketLobbyHandler.js';
 import { readyClientDiscussion, receiveClientJudgment, receiveClientMitigation, receiveClientReview, updateClientDiscussion } from './handlers/sockets/SocketGameHandler.js';
 
-export const DEBUG = false;
+export const DEBUG = true;
 const PORT = process.env.PORT || 3000;
 
 const __filename = fileURLToPath(import.meta.url);
@@ -48,7 +48,7 @@ Logger.useDefaults({
 /** Static files middleware */
 app.use(express.static('/app/public'));  // public directory
 if (DEBUG) {
-  app.use(express.static(path.join(__dirname, 'public', 'client', 'build')));   // public client build
+  app.use(express.static(path.join(__dirname, 'public', 'client')));   // public client build
 } else {
   app.use(express.static('/app/public/client/build'));   // public client build
 }
