@@ -83,10 +83,10 @@ export class LobbyHandler {
         // Find player in lobby
         const lobby = this.findLobby(lobbyCode);
         const player = this.getPlayerFromLobby(id, lobbyCode);
+        //@TODO take out
 
         // Toggle the player's ready status
         player.readyState = readyState;
-
         // Update number of ready players in status
         lobby.readyStatus.count += (readyState == true) ? 1 : -1;
 

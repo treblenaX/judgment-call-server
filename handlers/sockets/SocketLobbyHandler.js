@@ -175,7 +175,7 @@ export const handleUserDisconnect = (socket) => {
         const count = lobby.players.length;
         const lobbyCode = lobby.lobbyCode;
         if (count == 0) {
-            Logger.info(`[Lobby - ${lobbyCode}] has been deleted.`);
+            // Logger.info(`[Lobby - ${lobbyCode}] has been deleted.`);
             LobbyHandler.deleteLobby(lobbyCode);
         }
     });

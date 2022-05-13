@@ -19,7 +19,7 @@ import { welcomeUser } from './handlers/sockets/SocketConnectionHandler.js';
 import { connectToLobby, handleUserDisconnect, toggleReadyUp } from './handlers/sockets/SocketLobbyHandler.js';
 import { readyClientDiscussion, receiveClientJudgment, receiveClientMitigation, receiveClientReview, updateClientDiscussion } from './handlers/sockets/SocketGameHandler.js';
 
-export const DEBUG = true;
+export const DEBUG = false;
 const PORT = process.env.PORT || 3000;
 
 const __filename = fileURLToPath(import.meta.url);
@@ -57,6 +57,9 @@ if (DEBUG) {
 const onConnection = (socket) => {
   // Log the user connection
   welcomeUser(socket);
+  // socket.onAny((event) => {
+  //   console.log(event);
+  // })
   // On need to connect to lobby
   socket.on(ClientSocketStates.CONNECT_TO_LOBBY, (request) => connectToLobby(socket, request));
   // On need to toggle ready up

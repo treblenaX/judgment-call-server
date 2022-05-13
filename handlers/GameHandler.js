@@ -113,6 +113,44 @@ export class GameHandler {
         const player = PlayerHandler.getPlayer(players, focusPlayer.pId);
         // Save the discussion data
         player.data.discussion = focusPlayer.data;
+        // player.data.discussion = {
+        //     benefits: [
+        //         'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec finibus. ',
+        //         'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec finibus. ',
+        //         'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec finibus. ',
+        //         'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec finibus. ',
+        //         'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec finibus. ',
+        //         'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec finibus. ',
+        //         'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec finibus. ',
+        //         'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec finibus. ',
+        //         'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec finibus. ',
+        //         'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec finibus. ',
+        //     ],
+        //     harms: [
+        //         'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec finibus. ',
+        //         'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec finibus. ',
+        //         'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec finibus. ',
+        //         'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec finibus. ',
+        //         'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec finibus. ',
+        //         'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec finibus. ',
+        //         'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec finibus. ',
+        //         'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec finibus. ',
+        //         'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec finibus. ',
+        //         'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec finibus. ',
+        //     ],
+        //     themes: [
+        //         'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec finibus. ',
+        //         'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec finibus. ',
+        //         'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec finibus. ',
+        //         'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec finibus. ',
+        //         'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec finibus. ',
+        //         'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec finibus. ',
+        //         'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec finibus. ',
+        //         'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec finibus. ',
+        //         'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec finibus. ',
+        //         'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec finibus. ',
+        //     ]
+        // };
     }
 
     static isDoneDiscuss = (lobby) => {
