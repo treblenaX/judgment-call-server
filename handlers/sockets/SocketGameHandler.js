@@ -31,7 +31,7 @@ export const receiveClientReview = (socket, request) => {
 
         const handleRequest = {
             lobbyCode: lobbyCode,
-            ms: 1000 
+            ms: 7000 
         };
 
         handleLobbyReady(() => {    // After `ms` seconds, verify lobby is still ready
@@ -102,7 +102,7 @@ export const readyClientDiscussion = (socket, request) => {
 
         const handleRequest = {
             lobbyCode: lobbyCode,
-            ms: 1000 
+            ms: 7000 
         };
 
         handleLobbyReady(() => {    // After `ms` seconds, verify lobby is still ready
@@ -116,6 +116,10 @@ export const readyClientDiscussion = (socket, request) => {
 
                 // Start the discussion phase
                 const proceed = GameHandler.dealDiscussionTurn(lobby);
+
+                // Reset the discussion timer
+                emitToWholeLobby(socket, lobbyCode, ServerSocketStates.STOP_COUNTDOWN);
+
 
                 if (proceed) {  // Go to mitigation phase
                     // Change phase
@@ -170,7 +174,7 @@ export const receiveClientMitigation = (socket, request) => {
 
         const handleRequest = {
             lobbyCode: lobbyCode,
-            ms: 1000   
+            ms: 7000   
         };
 
         handleLobbyReady(() => {    // After `ms` seconds, verify lobby is still ready
@@ -238,7 +242,7 @@ export const receiveClientJudgment = (socket, request) => {
 
         const handleRequest = {
             lobbyCode: lobbyCode,
-            ms: 1000    // @TODO change back
+            ms: 7000    // @TODO change back
         };
 
         handleLobbyReady(() => {    // After `ms` seconds, verify lobby is still ready
