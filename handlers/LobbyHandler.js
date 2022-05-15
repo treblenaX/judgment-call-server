@@ -1,4 +1,5 @@
 import { GameStates } from "../constants/GameStates.js";
+import { DEBUG } from "../server.js";
 import { GameHandler } from "./GameHandler.js";
 import { PlayerHandler } from "./PlayerHandler.js";
 import { TimerHandler } from "./TimerHandler.js";
@@ -83,7 +84,6 @@ export class LobbyHandler {
         // Find player in lobby
         const lobby = this.findLobby(lobbyCode);
         const player = this.getPlayerFromLobby(id, lobbyCode);
-        //@TODO take out
 
         // Toggle the player's ready status
         player.readyState = readyState;
@@ -155,7 +155,9 @@ export class LobbyHandler {
 
             const count = lobby.players.length;
 
-            return (1 <= count && count <= 6);
+            return (DEBUG) 
+                ? (1 <= count && count <= 6)
+                : (4 <= count && count <= 6);
         }
         return null;    // @TODO: return error
     }

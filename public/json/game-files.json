@@ -26,7 +26,7 @@
         },
         {
             "name": "Human Dignity",
-            "description": "Create systems that ensure and promote the value of all humans."
+            "description": "Create systems that ensure and promote the value of all human life."
         },
         {
             "name": "Human Agency",
@@ -39,84 +39,50 @@
     ],
     "stakeholders": [
         {
-            "name": "Mithraic Leader",
-            "description": "Little is known about the Mithraic social structure. Soldiers hold conventional military ranks, such as Captain, but the Mithraic clergy is a hierarchy with unique titles. The title for the head of the Mithraic religion is unknown, but second-highest rank is Heliodromus. Lesser ranks or positions in the hierarchy include clerics and monks. Upon the destruction of the Ark of Heaven in 2157, the leader of the Mithraic was killed. Ambrose, possibly a Heliodromus, survived the crash and was the highest-ranking cleric still alive. Per the Mithraic line of succession, Ambrose was automatically elevated to the head of the religion and leader of the surviving Mithraic believers, who referred to him as His Eminence. Following Ambrose's death, leadership would next have passed to Justina, but the Mithraic chose to follow Marcus instead since they believed he was communicating with Sol. When Marcus was exiled, Justina was elevated to her rightful place."
+            "name": "Mithraic Clergy",
+            "description": "Little is known about the Mithraic social structure. Soldiers hold conventional military ranks, such as Captain, but the Mithraic clergy is a hierarchy with unique titles."
         },
         {
-            "name": "Atheist Leader",
-            "description": "desc"
+            "name": "Atheist",
+            "description": "The Atheists have become a united faction that opposed the Mithraic, a religious group dedicated to the sun god Sol that dominated Earth in the 22nd century. The conflict between the non-believers and the believers, the Religious War, devastated Earth and brought the human race to the edge of extinction."
         },
         {
             "name": "Mother",
-            "description": "Mother is an android with a secret past who has been programmed to raise a brood of human children on Kepler-22b. In addition to teaching the children to survive, Mother must also keep them from believing in the unreal; to ensure this virgin planet isn’t torn apart by the same religious differences that lead the Earth to its ultimate destruction. Mother hopes her family will serve as the nucleus for a peaceful, technocratic colony — a new beginning for humanity. But as she struggles to mold these growing humans, she also begins uncovering secrets hidden within her own programming, secrets that could help her protect her family, but could just as easily destroy them."
+            "description": "Mother, AKA Lamia, is a Necromancer of Mithraic origins re-programmed to raise six human children on Kepler-22b. In addition to teaching the children to survive, Mother was tasked with keeping the children from believing in the unreal and ensuring the colonized planet isn’t torn apart by the same religious differences that lead to the destruction of Earth."
         },
         {
             "name": "Father",
-            "description": "Father is android whose devotion to his human children is matched only by his devotion to Mother. Father is a considerably less complex model than Mother, but thanks to his wisdom and patience, he is no less important to the family’s survival. Like many human fathers, Father wants to be funny — especially in the eyes of Mother — but it’s a skill he often struggles with. What he is good at is always being there when you need him."
+            "description": "Father is android whose devotion to his human children is matched only by his devotion to Mother. Father is a considerably less complex model than Mother, but thanks to his wisdom and patience, he is no less important to the family’s survival."
         },
         {
             "name": "Children of the Ark",
-            "description": "desc"
+            "description": "Children of the Ark were taken by Mother when she stormed the Heaven's Ark and killed most of the adults aboard, in retaliation against their efforts to separate her from her son."
         },
         {
-            "name": "Kepler-22b Inhabitants",
-            "description": "desc"
+            "name": "Kepler-22b Creatures",
+            "description": "Kepler-22b is a semi-habitable, though not hospitable, planet. The unidentified species of creature native to the habitable planet Kepler-22b is highly aggressive and portrayed as being primal, predatory, violent, and hostile."
         },
         {
             "name": "Colonists",
-            "description": "desc"
+            "description": "Having arrived on Kepler-22b at the end of season 1, the Atheists are now the predominant human group on the planet after Mother destroyed The Ark of Heaven, leaving only a handful of survivors. The atheists established a colony in the tropical region."
         },
         {
             "name": "Androids",
-            "description": "desc"
+            "description": "An android is a type of robot designed to closely mimic humans. Various models of android include basic service models, specialized medical models, superweapons known as necromancers used by the Mithraics, and companions like Vrille."
         },
         {
             "name": "Campion and Children of Mother/Father",
-            "description": "Campion, a scrappy and soulful 12-year-old boy who was raised by Mother and Father since birth. When a ship of humans arrives from Earth, Campion is exposed to followers of religion for the first time in his life, and starts to question whether his android parents really know what’s best for him"
+            "description": "Campion is a scrappy and soulful 12-year-old boy who was raised by Mother and Father since birth. Campion is the only surviving human child raised on Kepler-22b."
         },
         {
             "name": "Mithraic Followers",
-            "description": "The Mithraic get their name from a real-world ancient religious cult of the god Mithras. The god Mitra originally came from ancient Persia, or modern Iran. At the height of the Roman Empire, he began to be worshipped as Mithras in a Roman mystery cult. The cult became very popular, especially with soldiers. The sun god Sol was originally a separate god, but Mithras was often worshipped together with Sol Invictus, the unconquerable sun."
+            "description": "The Mithraic get their name from a real-world ancient religious cult of the god Mithras. The god Mitra originally came from ancient Persia, or modern Iran. The sun god Sol was originally a separate god, but Mithras was often worshipped together with Sol Invictus, the unconquerable sun."
         }
     ],
     "scenarios": [
         {
             "name": "Emotion AI",
             "description": "Emotion AI is a subset of artificial intelligence that measures, understands, simulates, and reacts to human emotions. It’s also known as affective computing, or artificial emotional intelligence. Mother and Father in Raised by Wolves exhibit an imagined implementation of Emotion AI.",
-            "img": "test/img",
-            "stakeholdersMap": [
-                0,
-                1,
-                2,
-                3,
-                4,
-                5,
-                6,
-                7,
-                8,
-                9
-            ]
-        },
-        {
-            "name": "Necromancer",
-            "description": "Necromancers are superweapons in Raised by Wolves. A Necromancer is a model of military android designed by the Mithraic as a weapon against the atheists, during the Religious War in the twenty-second century. Necromancers are extremely dangerous and are essentially killing machines, armed with the ability to disintegrate any living thing using powerful soundwaves and to melt or freeze any physical surface with their breath. These dangerous traits are heightened by their being able to fly, shape-shift, and induce sleep, giving them physical and psychological advantages over their targets. However, their more lethal abilities cannot be activated without their eyes, which, upon being removed, render necromancers incapable of transforming to their metallic form.",
-            "img": "test/img",
-            "stakeholdersMap": [
-                0,
-                1,
-                2,
-                3,
-                4,
-                5,
-                6,
-                7,
-                8,
-                9
-            ]
-        },
-        {
-            "name": "Eyeball Scanners",
-            "description": "Eyeball scanners are a type of biometric authentication. Biometrics are body measurements and calculations related to human characteristics. Biometric authentication (or realistic authentication) is used in computer science as a form of identification and access control. It is also used to identify individuals in groups that are under surveillance. Biometric identifiers are the distinctive, measurable characteristics used to label and describe individuals.",
             "img": "test/img",
             "stakeholdersMap": [
                 0,
